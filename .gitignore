@@ -1,0 +1,9 @@
+#system, project, and generated files
+node_modules
+.DS_Store
+npm-debug.log
+.sass-cache
+.idea
+
+# annoying files
+#package-lock.json
