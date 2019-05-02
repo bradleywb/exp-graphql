@@ -9,7 +9,7 @@ const fs = require('fs');
 // </imports>
 // ---------------------------
 
-const dataURI = 'http://localhost:4001/data/courses.json';
+const dataURI = 'http://localhost:4001/courses.json';
 
 // ---------------------------
 // <api>
@@ -38,12 +38,16 @@ function getData() {
 }
 
 function updateData(data) {
-  fs.writeFile('./data/courses.json', JSON.stringify(data), (err) => {
+  if (!data || !data.length) throw new Error('no data provided');
+
+  return fs.writeFile('./data/courses.json', JSON.stringify(data), (err) => {
     if (err) throw err;
   });
 }
 
 function getCourse(args) {
+  if (!args.id) throw new Error('missing ID');
+
   return getData().then(function (courses) {
     return courses.filter(course => {
       return course.id == args.id;
@@ -59,7 +63,7 @@ function getCourses(args) {
 
 function createCourse(args) {
   return getData().then(function (courses) {
-    let id = courses[courses.length - 1].id + 1;
+    let id = courses.length ? courses[courses.length - 1].id + 1 : 0;
 
     let course = {
       id: id,

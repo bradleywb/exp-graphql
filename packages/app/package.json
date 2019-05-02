@@ -1,0 +1,16 @@
+{
+  "name": "exp-graphql-app",
+  "version": "0.0.1",
+  "description": "Just a GraphQL test",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "npm-run-all -p serve",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "npm-run-all": "^4.1.5"
+  }
+}

@@ -5,30 +5,20 @@ const { buildSchema } = require('graphql');
 const { importSchema } = require('graphql-import');
 
 // ---------------------------
-// <web app>
+// <mock data server>
 // ---------------------------
 
-const app = express();
-
-app.use(cors());
-
-app.use('/css', express.static('css'));
-app.use('/images', express.static('images'));
-app.use('/js', express.static('js'));
-app.use('/data', express.static('data'));
-
-app.get('/', function (req, res, next) {
-  res.sendFile('index.html', { root: __dirname });
-});
-
-app.listen(4001, () => console.log('server running at localhost:4001'));
+const dataServer = express();
+dataServer.use(cors());
+dataServer.use('/', express.static('data'));
+dataServer.listen(4001, () => { console.log('Data server running at localhost:4001') });
 
 // ---------------------------
-// </web app>
+// </mock data server>
 // ---------------------------
 
 // ---------------------------
-// <GraphQL>
+// <GraphQL server>
 // ---------------------------
 
 const gql = express();
@@ -37,7 +27,7 @@ gql.use(cors());
 
 // GraphQL schema
 
-const schema = buildSchema(importSchema('schemas/schema.graphql'));
+const schema = buildSchema(importSchema('./schemas/schema.graphql'));
 
 let courses = require('./resolvers/courses.js');
 
@@ -56,8 +46,8 @@ gql.use('/graphql', graphqlHTTP({
   pretty: true
 }));
 
-gql.listen(4000, () => { console.log('Server running at localhost:4000') });
+gql.listen(4000, () => { console.log('GraphQL server running at localhost:4000') });
 
 // ---------------------------
-// </GraphQL>
+// </GraphQL server>
 // ---------------------------

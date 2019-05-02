@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
-    "start": "node server.js"
+    "start": "npm install && lerna bootstrap && npm-run-all -p start:graphql start:app",
+    "start:graphql": "npm start --prefix packages/api",
+    "start:app": "npm start --prefix packages/app"
   },
   "repository": {
     "type": "git",
@@ -22,11 +24,7 @@
   },
   "homepage": "https://github.com/bradleywb/exp-graphql#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "express-graphql": "^0.8.0",
-    "graphql": "^14.2.1",
-    "graphql-import": "^0.7.1",
-    "node-fetch": "^2.4.1"
+    "lerna": "^3.13.4",
+    "npm-run-all": "^4.1.5"
   }
 }
